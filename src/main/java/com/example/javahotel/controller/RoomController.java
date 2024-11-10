@@ -5,6 +5,7 @@ import com.example.javahotel.dto.response.RoomDTO;
 import com.example.javahotel.entity.BookingRoom;
 import com.example.javahotel.entity.Room;
 import com.example.javahotel.exception.PhotoRetrievalException;
+import com.example.javahotel.service.BookingRoomService;
 import com.example.javahotel.service.RoomService;
 import com.example.javahotel.service.impl.BookingRoomServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ import java.util.List;
 public class RoomController {
 
     private final RoomService roomService;
-    private final BookingRoomServiceImpl bookingRoomService;
+    private final BookingRoomService bookingRoomService;
 
     @CrossOrigin
     @PostMapping("/add/new-room")
@@ -45,6 +46,8 @@ public class RoomController {
         return roomService.getAllRoomTypes();
     }
 
+    @CrossOrigin
+    @GetMapping("/all-rooms")
     public ResponseEntity<List<RoomDTO>> getAllRooms() throws SQLException {
         List<Room> rooms = roomService.getAllRooms();
         List<RoomDTO> roomDTOS = new ArrayList<>();
@@ -80,11 +83,10 @@ public class RoomController {
             try {
                 photoBytes = photoBlob.getBytes(1,(int)photoBlob.length());
             } catch (SQLException e){
-                throw new PhotoRetrievalException("Error retieving photo");
+                throw new PhotoRetrievalException("Error retrieving photo");
             }
         }
         return new RoomDTO(room.getId(),room.getRoomType(), room.getRoomPrice(), room.isBooked(), photoBytes,bookingInfo);
     }
-
 
 }
