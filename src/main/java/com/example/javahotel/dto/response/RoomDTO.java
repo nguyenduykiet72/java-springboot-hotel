@@ -1,7 +1,6 @@
 package com.example.javahotel.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.codec.binary.Base64;
@@ -25,10 +24,6 @@ public class RoomDTO {
         this.roomType = roomType;
         this.roomPrice = roomPrice;
     }
-
-//    public RoomDTO( byte[] photoBytes) {
-//        this.photo = photoBytes != null ? Base64.encodeBase64String(photoBytes) : null;
-//    }
 
     public RoomDTO(Long id, String roomType, BigDecimal roomPrice,
                    boolean isBooked, byte[] photoBytes, List<BookingDTO> bookings) {
